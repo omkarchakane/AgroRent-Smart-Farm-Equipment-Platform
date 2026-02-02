@@ -3,20 +3,34 @@
 
 <h2>Rental History</h2>
 
-{% for r in data %}
-<div class="card">
-<b>{{ r.equipment.name }}</b><br>
-Days: {{ r.total_days }}<br>
-Price: ₹{{ r.total_price }}<br>
-Status:
-{% if r.status == "Approved" %}
-<span style="color:green">{{ r.status }}</span>
-{% elif r.status == "Rejected" %}
-<span style="color:red">{{ r.status }}</span>
-{% else %}
-<span style="color:orange">{{ r.status }}</span>
-{% endif %}
+<div class="equipment-grid">
+    {% for r in data %}
+    <div class="card">
+        <div class="card-content">
+            <div class="card-title">{{ r.equipment.name }}</div>
+            
+            <div style="margin-bottom: 0.5rem;">
+                <strong>Duration:</strong> {{ r.total_days }} days
+            </div>
+            <div class="card-price" style="font-size: 1.25rem;">
+                ₹{{ r.total_price }}
+            </div>
+            
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.9rem; color: #6b7280;">Status</span>
+                {% if r.status == "Approved" %}
+                <span style="background: #dcfce7; color: #166534; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 500;">{{ r.status }}</span>
+                {% elif r.status == "Rejected" %}
+                <span style="background: #fee2e2; color: #991b1b; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 500;">{{ r.status }}</span>
+                {% else %}
+                <span style="background: #ffedd5; color: #9a3412; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 500;">{{ r.status }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+         <p>No rental history found.</p>
+    {% endfor %}
 </div>
-{% endfor %}
 
 {% endblock %}

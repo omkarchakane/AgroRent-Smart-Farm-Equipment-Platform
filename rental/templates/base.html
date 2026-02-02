@@ -1,44 +1,43 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Farm Rental</title>
-<style>
-body{background:#f6fbf7;font-family:Segoe UI}
-.nav{background:#16a34a;padding:15px;color:white;font-size:20px}
-.card{
-background:white;
-padding:15px;
-margin:15px;
-border-radius:12px;
-box-shadow:0 0 5px #ccc;
-display:inline-block;
-width:250px;
-}
-button{
-background:#22c55e;
-color:white;
-padding:8px 12px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
-input{padding:6px;border-radius:5px}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Equipment Rental</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-<div class="nav">
-🌾 Farm Equipment Rental System |
-<a href="/" style="color:white;">Home</a> |
-<a href="/history" style="color:white;">History</a> |
-{% if user.is_authenticated %}
-<a href="/logout" style="color:white;">Logout</a>
-{% else %}
-<a href="/login" style="color:white;">Login</a>
-<a href="/register" style="color:white;">Register</a>
-{% endif %}    
-</div>
+    <nav class="nav">
+        <div class="nav-brand">
+            <span>🌾</span> Farm Equipment Rental
+        </div>
+        <div class="nav-links">
+            <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+            {% if user.is_authenticated %}
+                <a href="/history" class="{% if request.path == '/history/' %}active{% endif %}">History</a>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login" class="{% if request.path == '/login/' %}active{% endif %}">Login</a>
+                <a href="/register" class="{% if request.path == '/register/' %}active{% endif %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
 
- {% block content %}{% endblock %} <!-- To avoid repeating same code again -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Farm Equipment Rental System. All rights reserved.</p>
+    </footer>
 </body>
 </html>

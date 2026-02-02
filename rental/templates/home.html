@@ -1,19 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<form method="get">
-<input type="text" name="search" placeholder="Search equipment">
-<button>Search</button>
-</form>
-
-{% for e in equipments %}
-<div class="card">
-<img src="{{ e.image.url }}" width="200"><br>
-<b>{{ e.name }}</b><br>
-₹{{ e.price_per_day }} per day<br>
-Owner: {{ e.owner_contact }}<br>
-<a href="{% url 'rent' e.id %}"><button>Rent</button></a>
+<div class="search-container">
+    <h2>Find the Perfect Equipment</h2>
+    <form method="get" class="search-box">
+        <input type="text" name="search" placeholder="Search tractors, harvesters..." value="{{ request.GET.search }}">
+        <button type="submit">Search</button>
+    </form>
 </div>
-{% endfor %}
+
+<div class="equipment-grid">
+    {% for e in equipments %}
+    <div class="card">
+        <div class="card-image-wrapper">
+             <img src="{{ e.image.url }}" alt="{{ e.name }}">
+        </div>
+        <div class="card-content">
+            <div class="card-title">{{ e.name }}</div>
+            <div class="card-price">₹{{ e.price_per_day }}<span style="font-size: 0.8rem; font-weight: 400; color: #6b7280;"> / day</span></div>
+            <div class="card-details">
+                Owner: {{ e.owner_contact }}
+            </div>
+            <div class="card-action">
+                <a href="{% url 'rent' e.id %}" style="text-decoration: none;"><button style="width: 100%;">Rent Now</button></a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+        <h3>No equipment found</h3>
+        <p>Try adjusting your search terms.</p>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
