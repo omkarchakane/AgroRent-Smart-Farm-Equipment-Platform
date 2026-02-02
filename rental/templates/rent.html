@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Rent {{ equipment.name }}</h2>
+
+<form method="post">
+{% csrf_token %}
+Start Date: <input type="date" name="start_date"><br><br>
+End Date: <input type="date" name="end_date"><br><br>
+<button>Submit</button>
+</form>
+
+{% endblock %}

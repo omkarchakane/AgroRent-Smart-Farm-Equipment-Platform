@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Rental History</h2>
+
+{% for r in data %}
+<div class="card">
+<b>{{ r.equipment.name }}</b><br>
+Days: {{ r.total_days }}<br>
+Price: ₹{{ r.total_price }}<br>
+Status:
+{% if r.status == "Approved" %}
+<span style="color:green">{{ r.status }}</span>
+{% elif r.status == "Rejected" %}
+<span style="color:red">{{ r.status }}</span>
+{% else %}
+<span style="color:orange">{{ r.status }}</span>
+{% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}

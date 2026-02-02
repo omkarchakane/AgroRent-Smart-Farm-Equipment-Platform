@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Farm Rental</title>
+<style>
+body{background:#f6fbf7;font-family:Segoe UI}
+.nav{background:#16a34a;padding:15px;color:white;font-size:20px}
+.card{
+background:white;
+padding:15px;
+margin:15px;
+border-radius:12px;
+box-shadow:0 0 5px #ccc;
+display:inline-block;
+width:250px;
+}
+button{
+background:#22c55e;
+color:white;
+padding:8px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+input{padding:6px;border-radius:5px}
+</style>
+
+</head>
+<body>
+<div class="nav">
+🌾 Farm Equipment Rental System |
+<a href="/" style="color:white;">Home</a> |
+<a href="/history" style="color:white;">History</a> |
+{% if user.is_authenticated %}
+<a href="/logout" style="color:white;">Logout</a>
+{% else %}
+<a href="/login" style="color:white;">Login</a>
+<a href="/register" style="color:white;">Register</a>
+{% endif %}    
+</div>
+
+ {% block content %}{% endblock %} <!-- To avoid repeating same code again -->
+</body>
+</html>
